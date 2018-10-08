@@ -69,6 +69,8 @@ void typeKey(char c) {
 		typeShift('9');
 	else if (c == ')')
 		typeShift('0');
+	else if (c == '`')
+		typeOne(VK_RETURN);
 
 }
 
