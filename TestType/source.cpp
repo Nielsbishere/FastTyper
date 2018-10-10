@@ -30,7 +30,7 @@ void typeOne(int i) {
 	release(i);
 }
 
-void typeShift(int i) {		//Fuck
+void typeShift(int i) {
 
 	press(VK_SHIFT);
 	press(i);
@@ -71,6 +71,8 @@ void typeKey(char c) {
 		typeShift('0');
 	else if (c == '`')
 		typeOne(VK_RETURN);
+	else if (c == '@')
+		typeShift('2');
 
 }
 
@@ -85,22 +87,24 @@ void type(const char *str, DWORD ms) {
 
 }
 
-#define WAIT 1500
-
 int main(int argc, char *argv[]) {
 
-	FreeConsole();
-	Sleep(WAIT);
-
-	if (argc < 2)
-		return 1;	//fuck off
-
-	int speed = std::stoi(argv[1]);
-
-	for (int i = 2; i < argc; ++i) {
-		type(argv[i], speed);
-		if(i != argc - 1) type(" ", speed);
+	if (argc < 4) {
+		printf("Usage: TestType waitTime(ms) typeInterval(ms) loops <text>");
+		return 1;
 	}
+
+	int wait = std::stoi(argv[1]);
+	int speed = std::stoi(argv[2]);
+	int loops = std::stoi(argv[3]);
+
+	Sleep(wait);
+
+	for (int j = 0; j < loops; ++j)
+		for (int i = 4; i < argc; ++i) {
+			type(argv[i], speed);
+			if(i != argc - 1) type(" ", speed);
+		}
 
 	return 0;
 
